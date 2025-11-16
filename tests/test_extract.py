@@ -8,7 +8,7 @@ def test_read_csv_files_mock(monkeypatch):
     def fake_read_csv(path):
         return fake_df
 
-    # podmieniamy pandas.read_csv na fake_read_csv
+    # podmiana pandas.read_csv na fake_read_csv
     monkeypatch.setattr("pandas.read_csv", fake_read_csv)
 
     customers, sales, returns = read_csv_files(Path("fake/folder"))

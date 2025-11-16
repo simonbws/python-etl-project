@@ -15,7 +15,7 @@ def main():
     # --------------------
     parser = argparse.ArgumentParser(description="Mini ETL Pipeline")
     parser.add_argument("--input-folder", type=str, help="Folder z plikami CSV", default="data/raw")
-    parser.add_argument("--output-file", type=str, help="Ścieżka do pliku wynikowego (nadpisze config)", default=None)
+    parser.add_argument("--output-file", type=str, help="Ścieżka do pliku wynikowego", default=None)
     parser.add_argument("--save-index", action="store_true", help="Zapisuj indeks w Parquet")
     args = parser.parse_args()
 
@@ -32,12 +32,10 @@ def main():
         else Path(config["paths"]["output_file"])
     )
 
-    # --------------------
     # Logowanie
-    # --------------------
     logger, _ = setup_logging(Path("logs"))
 
-    logger.info("🚀 Start MiniETL pipeline")
+    logger.info(" Start MiniETL pipeline")
     start_time = datetime.now()
 
     try:
@@ -50,14 +48,14 @@ def main():
         # Load
         save_to_parquet(df, output_path, save_index=args.save_index)
 
-        logger.info("✅ Pipeline zakończony sukcesem")
+        logger.info(" Pipeline zakończony sukcesem")
 
     except Exception as e:
-        logger.exception(f"❌ Błąd w pipeline: {e}")
+        logger.exception(f" Błąd w pipeline: {e}")
         raise
 
     finally:
-        logger.info(f"⏱️ Pipeline zakończony w: {datetime.now() - start_time}")
+        logger.info(f" Pipeline zakończony w: {datetime.now() - start_time}")
 
 
 if __name__ == "__main__":

@@ -1,4 +1,3 @@
-# tests/test_pipeline_e2e.py
 import pandas as pd
 import pytest
 from pathlib import Path
@@ -36,26 +35,18 @@ def sample_csv(tmp_path):
     return tmp_path
 
 def test_pipeline_e2e(tmp_path, sample_csv):
-    # -------------------------------
-    # 1️⃣ Extract
-    # -------------------------------
+    # Extract
     customers, sales, returns = read_csv_files(sample_csv)
 
-    # -------------------------------
-    # 2️⃣ Transform
-    # -------------------------------
+    #Transform
     df = clean_and_merge(customers, sales, returns)
 
-    # -------------------------------
-    # 3️⃣ Sprawdzenie transformacji
-    # -------------------------------
+    # Sprawdzenie transformacji
     assert "total_value" in df.columns
     assert df["quantity"].notna().all()
     assert df["customer_id"].notna().all()
 
-    # -------------------------------
-    # 4️⃣ Load
-    # -------------------------------
+    # Load
     output_file = tmp_path / "output.parquet"
     saved_path = save_to_parquet(df, output_file, save_index=False, versioned=True)
 

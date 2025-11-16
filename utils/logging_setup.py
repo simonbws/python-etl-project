@@ -1,4 +1,3 @@
-# logging_setup.py (możesz też wkleić bezpośrednio do komórki)
 import logging
 from pathlib import Path
 from logging.handlers import RotatingFileHandler
@@ -18,7 +17,7 @@ def setup_logging(log_dir: Path = Path("logs"), log_name: str = "pipeline.log",
     logger = logging.getLogger()  # root logger
     logger.setLevel(level)
 
-    # Usuń stare handlery (przy wielokrotnym uruchamianiu w notebooku)
+    # Usuwanie starych handlerów (przy wielokrotnym uruchamianiu w notebooku)
     if logger.handlers:
         logger.handlers = []
 
